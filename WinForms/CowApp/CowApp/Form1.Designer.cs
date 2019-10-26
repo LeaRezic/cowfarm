@@ -28,13 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.lbCows = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // lbCows
+            // 
+            this.lbCows.FormattingEnabled = true;
+            this.lbCows.Location = new System.Drawing.Point(12, 55);
+            this.lbCows.Name = "lbCows";
+            this.lbCows.Size = new System.Drawing.Size(525, 290);
+            this.lbCows.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 36);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Cows";
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(582, 490);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lbCows);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.ListBox lbCows;
+        private System.Windows.Forms.Label label1;
     }
 }
 
