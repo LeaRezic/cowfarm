@@ -10,6 +10,8 @@ namespace CowApp
     {
 
         private IRepository Repo { get; set; }
+        private Cow CurrentCow { get; set; }
+        private List<Cow> CowData;
 
         public Form1()
         {
@@ -21,21 +23,43 @@ namespace CowApp
         private void loadDataSource()
         {
             Repo = new DBRepository();
+            CurrentCow = null;
+            CowData = Repo.GetCows().ToList();
+            //cowData = null;
         }
 
         private void loadCows()
         {
-            ListBox lbCows = (ListBox) this.Controls.Find("lbCows", true)[0];
-            List<Cow> breeds = Repo.GetCows().ToList();
-            breeds.ForEach((b) => addCowToList(lbCows, b));
+            if (CowData == null || CowData.Count == 0)
+            {
+                Label lbl = new Label();
+                lbl.Text = "No Data.";
+                this.lbCows.Controls.Add(lbl);
+                return;
+            }
+            this.lbCows.DataSource = CowData;
+            this.lbCows.SelectedIndexChanged += LbCows_SelectedIndexChanged;
+            CurrentCow = lbCows.SelectedValue as Cow;
         }
 
-        private void addCowToList(ListBox lbCows, Cow b)
+        private void LbCows_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            Label lbl = new Label();
-            lbl.Text = $"Cow: {b.Name}, {b.VeterinaryID}, {b.DateOfBirth}, {b.CalfCount}";
-            lbl.Width = 500;
-            lbCows.Controls.Add(lbl);
+            CurrentCow = lbCows.SelectedValue as Cow;
+        }
+
+        private void btnUpdateCow_Click(object sender, System.EventArgs e)
+        {
+            if (CowData == null || CowData.Count == 0)
+            {
+                MessageBox.Show("No data available.");
+                return;
+            }
+            if (CurrentCow == null)
+            {
+                MessageBox.Show("Please select a cow to update.");
+                return;
+            }
+            MessageBox.Show(CurrentCow.ToString());
         }
     }
 }

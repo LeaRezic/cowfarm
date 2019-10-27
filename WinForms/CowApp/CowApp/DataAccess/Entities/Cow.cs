@@ -40,5 +40,7 @@ namespace CowApp.DataAccess.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DailyMilkProduction> DailyMilkProductions { get; set; }
+
+        public override string ToString() => $"{Name} ({Breed.Name}), vet ID: {VeterinaryID}";
     }
 }
