@@ -14,5 +14,6 @@ namespace CowApp.DataAccess.Repository
         IEnumerable<DailyMilkProduction> GetDailyMilkProductions();
         Breed GetBreed(int id);
         Cow GetCow(int id);
+        void UpdateCow(Cow cow);
     }
 }

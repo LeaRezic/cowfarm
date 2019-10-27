@@ -2,12 +2,7 @@
 using CowApp.DataAccess.Repository;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CowApp.SubForms
@@ -16,6 +11,7 @@ namespace CowApp.SubForms
     {
         private IRepository Repo;
         private List<Breed> Breeds { get; set; }
+        private int CowID { get; set; }
         public UpdateCowForm()
         {
             InitializeComponent();
@@ -38,6 +34,7 @@ namespace CowApp.SubForms
 
         public void ShowCow(Cow cow)
         {
+            CowID = cow.IDCow;
             txtName.Text = cow.Name;
             ddBreed.SelectedValue = cow.BreedID;
             dpDob.Value = cow.DateOfBirth;
@@ -53,8 +50,31 @@ namespace CowApp.SubForms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Not implemented yet...");
-            this.Close();
+            try
+            {
+                Repo.UpdateCow(this.GetCowData());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error while updating cow. {ex.Message}");
+            }
+            finally
+            {
+                this.Close();
+            }
+        }
+
+        private Cow GetCowData()
+        {
+            Cow updatedCow = new Cow();
+            updatedCow.IDCow = CowID;
+            updatedCow.Name = txtName.Text;
+            updatedCow.BreedID = int.Parse(ddBreed.SelectedValue.ToString());
+            updatedCow.DateOfBirth = dpDob.Value;
+            updatedCow.DateOfArrival = dpDoA.Value;
+            updatedCow.CalfCount = int.Parse(numCalf.Value.ToString());
+            updatedCow.VeterinaryID = mtxtVetId.Text;
+            return updatedCow;
         }
     }
 }
