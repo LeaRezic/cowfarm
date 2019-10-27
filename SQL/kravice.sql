@@ -23,6 +23,7 @@ CREATE TABLE Cow (
 	,VeterinaryID NVARCHAR(25) NOT NULL
 	,DateOfArrival DATE NOT NULL
 	,CalfCount INT NOT NULL
+	,PicturePath NVARCHAR(255)
 	,CONSTRAINT PK_Cow PRIMARY KEY (IDCow)
 	,CONSTRAINT FK_Cow_Breed FOREIGN KEY (BreedID) REFERENCES Breed (IDBreed)
 	,CONSTRAINT CH_VeterinaryID CHECK (VeterinaryID LIKE 'HR%')
@@ -49,12 +50,12 @@ AS
 	,('Simental')
 	,('Regular Cow')
 
-	INSERT INTO Cow(Name, BreedID, DateOfBirth, VeterinaryID, DateOfArrival, CalfCount)
-	VALUES('Zdenka', 1, '2018-11-10', 'HR123456789', '2019-03-20', 3)
-	,('Milka', 1, '2017-12-25', 'HR223456789', '2018-05-12', 9)
-	,('Kata', 2, '2018-05-05', 'HR323456789', '2018-10-20', 7)
-	,('Tonka', 3, '2019-02-02', 'HR423456789', '2019-05-30', 6)
-	,('Slavica', 3, '2019-03-03', 'HR523456789', '2019-06-30', 6)
+	INSERT INTO Cow(Name, BreedID, DateOfBirth, VeterinaryID, DateOfArrival, CalfCount, PicturePath)
+	VALUES('Zdenka', 1, '2018-11-10', 'HR123456789', '2019-03-20', 3, 'cow1.jpg')
+	,('Milka', 1, '2017-12-25', 'HR223456789', '2018-05-12', 9, 'cow2.jpg')
+	,('Kata', 2, '2018-05-05', 'HR323456789', '2018-10-20', 7, 'cow3.jpg')
+	,('Tonka', 3, '2019-02-02', 'HR423456789', '2019-05-30', 6, 'cow4.jpg')
+	,('Slavica', 3, '2019-03-03', 'HR523456789', '2019-06-30', 6, 'cow5.jpg')
 
 	INSERT INTO DailyMilkProduction(EntryDate, CowID, MilkInLiters, AverageFat, AverageMicroorganisms)
 	VALUES('2019-10-25', 1, 25, 33.6, 78.4)

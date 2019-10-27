@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCowApp", "WebCowApp\WebCowApp.csproj", "{D86B3A62-4521-4410-9C03-CC0AD0CFFE8E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D86B3A62-4521-4410-9C03-CC0AD0CFFE8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D86B3A62-4521-4410-9C03-CC0AD0CFFE8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D86B3A62-4521-4410-9C03-CC0AD0CFFE8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D86B3A62-4521-4410-9C03-CC0AD0CFFE8E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {13E734D9-0341-42D8-9A90-B94F001482CB}
+	EndGlobalSection
+EndGlobal

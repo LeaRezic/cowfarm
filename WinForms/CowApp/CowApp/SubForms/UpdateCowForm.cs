@@ -12,6 +12,8 @@ namespace CowApp.SubForms
         private IRepository Repo;
         private List<Breed> Breeds { get; set; }
         private int CowID { get; set; }
+        public bool DidUpdate { get; set; }
+
         public UpdateCowForm()
         {
             InitializeComponent();
@@ -52,7 +54,10 @@ namespace CowApp.SubForms
         {
             try
             {
+                // TODO: add validations
+                // non-empty strings, dates (ex arrival after birth, no future), vetID with HR
                 Repo.UpdateCow(this.GetCowData());
+                DidUpdate = true;
             }
             catch (Exception ex)
             {
