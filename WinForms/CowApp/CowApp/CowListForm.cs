@@ -1,19 +1,20 @@
 ﻿using CowApp.DataAccess.Entities;
 using CowApp.DataAccess.Repository;
+using CowApp.SubForms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace CowApp
 {
-    public partial class Form1 : Form
+    public partial class CowListForm : Form
     {
 
         private IRepository Repo { get; set; }
         private Cow CurrentCow { get; set; }
         private List<Cow> CowData;
 
-        public Form1()
+        public CowListForm()
         {
             InitializeComponent();
             loadDataSource();
@@ -59,7 +60,9 @@ namespace CowApp
                 MessageBox.Show("Please select a cow to update.");
                 return;
             }
-            MessageBox.Show(CurrentCow.ToString());
+            UpdateCowForm updateForm = new UpdateCowForm();
+            updateForm.ShowCow(CurrentCow);
+            updateForm.Show();
         }
     }
 }

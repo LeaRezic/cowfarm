@@ -61,16 +61,22 @@
     <Compile Include="DataAccess\Repository\DBModel.cs" />
     <Compile Include="DataAccess\Repository\DBRepository.cs" />
     <Compile Include="DataAccess\Repository\IRepository.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="CowListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CowListForm.Designer.cs">
+      <DependentUpon>CowListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="SubForms\UpdateCowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms\UpdateCowForm.Designer.cs">
+      <DependentUpon>UpdateCowForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CowListForm.resx">
+      <DependentUpon>CowListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -81,6 +87,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SubForms\UpdateCowForm.resx">
+      <DependentUpon>UpdateCowForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

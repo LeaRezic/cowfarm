@@ -1,6 +1,6 @@
 ﻿namespace CowApp
 {
-    partial class Form1
+    partial class CowListForm
     {
         /// <summary>
         /// Required designer variable.
