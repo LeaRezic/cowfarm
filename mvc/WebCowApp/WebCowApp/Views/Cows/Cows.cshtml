@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<WebCowApp.Models.CowVM>
 
 @{
-    ViewBag.Title = "Cows";
+                /**/
+
+                ViewBag.Title = "Cows";
 }
 
 <h2>Cows</h2>
@@ -32,40 +34,53 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <img
-                class="cowPicture"
-                src="https://oldmooresalmanac.com/wp-content/uploads/2017/11/cow-2896329_960_720-Copy.jpg"
-                alt="Image of Cow"
-            />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BreedName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfArrival)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VetID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CalfCount)
-        </td>
-        <td>
-            <button onclick="printMilkDetails(@item.CowID)" class="btn btn-xs btn-info">Milk Details</button>
-            <button onclick="editPhoto(@item.CowID)" class="btn btn-xs btn-success">Edit Photo</button>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img class="cowPicture"
+                     src="https://oldmooresalmanac.com/wp-content/uploads/2017/11/cow-2896329_960_720-Copy.jpg"
+                     alt="Image of Cow" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BreedName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfArrival)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VetID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalfCount)
+            </td>
+            <td>
+                @*<button onclick="printMilkDetails(@item.CowID)" class="btn btn-xs btn-info">Milk Details</button>*@
+                <button onclick="editPhoto(@item.CowID)" class="btn btn-xs btn-success">Edit Photo</button>
+                @Html.ActionLink("Milking Data", "ModalMilkDetails", "Cows", new { id = item.CowID }, new
+                {
+                    @class = "btn btn-xs btn-info",
+                    data_target = "#modal-container",
+                    data_toggle = "modal"
+                })
+            </td>
+        </tr>
+    }
 </table>
+
+<div id="modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
 
 @section Scripts {
 
@@ -78,12 +93,19 @@
         //   fetch(`/Cows/MilkDetails/${id}`)
         //        .then((res) => res.json())
         //        .then((data) => console.log(data));
-             
+
         //};
-        const printMilkDetails = (id) => {
-            fetch(`/Cows/CowMilkDetails/${id}`)
-                .then((res) => res.json())
-                .then((data) => console.log(data));
-        };
+        //const printMilkDetails = (id) => {
+        //    fetch(`/Cows/CowMilkDetails/${id}`)
+        //        .then((res) => res.json())
+        //        .then((data) => console.log(data));
+        //};
+
+        $(function () {
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+                $('#modal-container .modal-content').empty();
+            });
+        });
     </script>
 }

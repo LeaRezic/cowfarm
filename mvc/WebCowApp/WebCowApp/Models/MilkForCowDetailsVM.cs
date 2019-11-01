@@ -9,7 +9,6 @@ namespace WebCowApp.Models
     {
         public int CowID { get; set; }
         public string CowName { get; set; }
-        public string Date { get; set; }
-        public decimal MilkInLiters { get; set; }
+        public List<MilkEntryVM> MilkEntries { get; set; }
     }
 }

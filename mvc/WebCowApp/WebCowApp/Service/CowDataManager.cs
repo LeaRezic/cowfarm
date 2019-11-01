@@ -25,28 +25,28 @@ namespace WebCowApp.Service
                 .Select((entity) => CowEntityToVM(entity));
         }
 
-        public IEnumerable<MilkForCowDetailsVM> GetMilkDetailsForCow(int cowId)
+        public MilkForCowDetailsVM GetMilkDetailsForCow(int cowId)
         {
-            List<MilkForCowDetailsVM> result = new List<MilkForCowDetailsVM>();
-            List<DailyMilkProduction> dmpList = Repo.GetDailyMilkProductions()
+            MilkForCowDetailsVM result = new MilkForCowDetailsVM();
+            List<DailyMilkProduction> milkEntries = Repo.GetDailyMilkProductions()
                 .Where((dmp) => dmp.CowID == cowId)
                 .ToList();
-            if (dmpList.Count > 0)
+            if (milkEntries.Count > 0)
             {
-                result = dmpList.Select((dmp) => DmpToMilkForCowDetailsVM(dmp))
+                result.CowID = milkEntries[0].CowID;
+                result.CowName = milkEntries[0].Cow.Name;
+                result.MilkEntries = milkEntries.Select((dmp) => MilkEntryEntityToVM(dmp))
                     .ToList();
             }
             return result;
         }
 
-        private MilkForCowDetailsVM DmpToMilkForCowDetailsVM(DailyMilkProduction dmp)
+        private MilkEntryVM MilkEntryEntityToVM(DailyMilkProduction dmp)
         {
-            return new MilkForCowDetailsVM
+            return new MilkEntryVM
             {
-                CowID = dmp.CowID,
-                CowName = dmp.Cow.Name,
-                Date = dmp.EntryDate.ToString(),
-                MilkInLiters = dmp.MilkInLiters
+                Date = dmp.EntryDate.ToLongDateString(),
+                Liters = dmp.MilkInLiters
             };
         }
 

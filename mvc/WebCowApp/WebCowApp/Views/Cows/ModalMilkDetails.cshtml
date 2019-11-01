@@ -1,0 +1,30 @@
+﻿@model WebCowApp.Models.MilkForCowDetailsVM
+
+<div class="modal-body">
+    <h3 class="modal-title">Milking entries for @Model.CowName</h3>
+    <table class="table">
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Milk in Liters
+            </th>
+        </tr>
+
+        @foreach (var item in Model.MilkEntries)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Liters)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">CLOSE</button>
+</div>

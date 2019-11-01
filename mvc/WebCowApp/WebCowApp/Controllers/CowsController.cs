@@ -26,8 +26,14 @@ namespace WebCowApp.Controllers
 
         public ActionResult CowMilkDetails(int id)
         {
-            List<MilkForCowDetailsVM> detailsList = CowDataManager.GetMilkDetailsForCow(id).ToList();
-            return Json(detailsList, JsonRequestBehavior.AllowGet);
+            MilkForCowDetailsVM details = CowDataManager.GetMilkDetailsForCow(id);
+            return Json(details, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ModalMilkDetails(int id)
+        {
+            MilkForCowDetailsVM details = CowDataManager.GetMilkDetailsForCow(id);
+            return PartialView(details);
         }
     }
 }
