@@ -27,7 +27,7 @@ namespace WebCowApp.DataAccess.Repository
 
             modelBuilder.Entity<Cow>()
                 .HasMany(e => e.DailyMilkProductions)
-                .WithOptional(e => e.Cow)
+                .WithRequired(e => e.Cow)
                 .HasForeignKey(e => e.CowID);
 
             modelBuilder.Entity<DailyMilkProduction>()

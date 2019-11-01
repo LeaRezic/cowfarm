@@ -13,11 +13,13 @@ namespace WebCowApp.DataAccess.Entities
         public int IDDailyMilkProduction { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? EntryDate { get; set; }
+        public DateTime EntryDate { get; set; }
 
-        public int? CowID { get; set; }
+        [Required]
+        public int CowID { get; set; }
 
-        public decimal? MilkInLiters { get; set; }
+        [Required]
+        public decimal MilkInLiters { get; set; }
 
         public decimal? AverageFat { get; set; }
 

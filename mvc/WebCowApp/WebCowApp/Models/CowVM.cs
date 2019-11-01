@@ -8,6 +8,7 @@ namespace WebCowApp.Models
 {
     public class CowVM
     {
+        public int CowID { get; set; }
         [Display(Name="Cow Name")]
         public string Name { get; set; }
         public int BreedID { get; set; }
@@ -21,6 +22,7 @@ namespace WebCowApp.Models
         public string VetID { get; set; }
         [Display(Name = "Number of Calf")]
         public int CalfCount { get; set; }
+        [Display(Name = "Picture")]
         public string PicturePath { get; set; }
     }
 }

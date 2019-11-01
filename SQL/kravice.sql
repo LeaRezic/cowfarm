@@ -32,9 +32,9 @@ CREATE TABLE Cow (
 
 CREATE TABLE DailyMilkProduction (
 	IDDailyMilkProduction INT IDENTITY
-	,EntryDate DATE
-	,CowID INT
-	,MilkInLiters DECIMAL
+	,EntryDate DATE NOT NULL
+	,CowID INT NOT NULL
+	,MilkInLiters DECIMAL NOT NULL
 	,AverageFat DECIMAL
 	,AverageMicroorganisms DECIMAL
 	,CONSTRAINT PK_DailyMilkProduction PRIMARY KEY (IDDailyMilkProduction)
