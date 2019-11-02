@@ -21,8 +21,29 @@ namespace WebCowApp.Service
         public IEnumerable<CowVM> GetCowVMs()
         {
             return Repo.GetCows()
-                .ToList()
                 .Select((entity) => CowEntityToVM(entity));
+        }
+
+        public IEnumerable<CowVM> GetCowByBreedVMs(int id)
+        {
+            return Repo.GetCows()
+                .Where((entity) => entity.BreedID == id)
+                .Select((entity) => CowEntityToVM(entity));
+        }
+
+        public IEnumerable<BreedVM> GetBreedVMs()
+        {
+            return Repo.GetBreeds()
+                .Select((breed) => BreedEntityToVM(breed));
+        }
+
+        private BreedVM BreedEntityToVM(Breed breed)
+        {
+            return new BreedVM
+            {
+                Id = breed.IDBreed,
+                Name = breed.Name,
+            };
         }
 
         public MilkForCowDetailsVM GetMilkDetailsForCow(int cowId)

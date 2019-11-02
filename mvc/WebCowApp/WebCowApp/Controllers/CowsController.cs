@@ -20,8 +20,18 @@ namespace WebCowApp.Controllers
         // GET: Cows
         public ActionResult Cows()
         {
-            var model = CowDataManager.GetCowVMs();
+            List<BreedVM> model = new List<BreedVM>();
+            model.Add(new BreedVM { Id = 0, Name = "Show All" });
+            model.AddRange(CowDataManager.GetBreedVMs());
             return View(model);
+        }
+
+        public ActionResult CowsForBreed(int id)
+        {
+            IEnumerable<CowVM> model = id == 0
+                ? CowDataManager.GetCowVMs()
+                : CowDataManager.GetCowByBreedVMs(id);
+            return PartialView(model);
         }
 
         public ActionResult CowMilkDetails(int id)

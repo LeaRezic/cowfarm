@@ -11,5 +11,6 @@ namespace WebCowApp.DataAccess.Repository
     {
         IEnumerable<Cow> GetCows();
         IEnumerable<DailyMilkProduction> GetDailyMilkProductions();
+        IEnumerable<Breed> GetBreeds();
     }
 }

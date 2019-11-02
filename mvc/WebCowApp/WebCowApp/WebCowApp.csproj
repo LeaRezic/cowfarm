@@ -165,6 +165,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BreedVM.cs" />
     <Compile Include="Models\CowVM.cs" />
     <Compile Include="Models\MilkEntryVM.cs" />
     <Compile Include="Models\MilkForCowDetailsVM.cs" />
@@ -209,6 +210,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Cows\Cows.cshtml" />
     <Content Include="Views\Cows\ModalMilkDetails.cshtml" />
+    <Content Include="Views\Cows\CowsForBreed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

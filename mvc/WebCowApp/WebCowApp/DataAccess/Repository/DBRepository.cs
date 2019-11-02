@@ -8,6 +8,22 @@ namespace WebCowApp.DataAccess.Repository
 {
     public class DBRepository : IRepository
     {
+        public IEnumerable<Breed> GetBreeds()
+        {
+            try
+            {
+                using (DBModel _db = new DBModel())
+                {
+                    return _db.Breeds.ToList();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public IEnumerable<Cow> GetCows()
         {
             try
