@@ -34,16 +34,26 @@ namespace WebCowApp.Controllers
             return PartialView(model);
         }
 
-        public ActionResult CowMilkDetails(int id)
-        {
-            MilkForCowDetailsVM details = CowDataManager.GetMilkDetailsForCow(id);
-            return Json(details, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult ModalMilkDetails(int id)
         {
             MilkForCowDetailsVM details = CowDataManager.GetMilkDetailsForCow(id);
             return PartialView(details);
         }
+
+        public ActionResult EditPicture(int id)
+        {
+            CowVM cow = CowDataManager.GetCowById(id);
+            return View(cow);
+        }
+
+        [HttpPost]
+        public ActionResult EditPicture(CowPictureEditVM cow)
+        {
+            CowDataManager.UpdateCowPicture(cow.CowID, cow.PicturePath);
+            Console.WriteLine(cow);
+            return RedirectToAction("Cows");
+        }
+
+
     }
 }

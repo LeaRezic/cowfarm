@@ -16,7 +16,7 @@
 </div>
 
 @* Modal for milking details, will render the milking details for a certain cow *@
-<div id="modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog">
+<div id="modalMilkDetails" class="modal fade hidden-print" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
         </div>
@@ -39,9 +39,9 @@
                 renderCowsTable(selectedID);
             });
 
-            $('#modal-container').on('hidden.bs.modal', function () {
+            $('#modalMilkDetails').on('hidden.bs.modal', function () {
                 $(this).removeData('bs.modal');
-                $('#modal-container .modal-content').empty();
+                $('#modalMilkDetails .modal-content').empty();
             });
 
             $('#breedDd').val(0);

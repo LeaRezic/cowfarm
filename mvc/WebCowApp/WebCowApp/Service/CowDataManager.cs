@@ -62,6 +62,20 @@ namespace WebCowApp.Service
             return result;
         }
 
+        internal void UpdateCowPicture(int cowID, string picturePath)
+        {
+            Cow entity = Repo.GetCowById(cowID);
+            entity.PicturePath = picturePath;
+            Repo.UpdateCow(entity);
+        }
+
+        internal CowVM GetCowById(int id)
+        {
+            return GetCowVMs()
+                .Where((cow) => cow.CowID == id)
+                .FirstOrDefault();
+        }
+
         private MilkEntryVM MilkEntryEntityToVM(DailyMilkProduction dmp)
         {
             return new MilkEntryVM

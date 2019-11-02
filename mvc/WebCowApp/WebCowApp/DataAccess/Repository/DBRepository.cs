@@ -24,6 +24,23 @@ namespace WebCowApp.DataAccess.Repository
             }
         }
 
+        public Cow GetCowById(int cowID)
+        {
+            try
+            {
+                using (DBModel _db = new DBModel())
+                {
+                    return _db.Cows
+                        .Find(cowID);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public IEnumerable<Cow> GetCows()
         {
             try
@@ -47,6 +64,23 @@ namespace WebCowApp.DataAccess.Repository
                 using (DBModel _db = new DBModel())
                 {
                     return _db.DailyMilkProductions.Include("Cow").ToList();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void UpdateCow(Cow entity)
+        {
+            try
+            {
+                using (DBModel _db = new DBModel())
+                {
+                    _db.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                    _db.SaveChanges();
                 }
             }
             catch (Exception)

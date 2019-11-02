@@ -167,6 +167,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BreedVM.cs" />
+    <Compile Include="Models\CowPictureEditVM.cs" />
     <Compile Include="Models\CowVM.cs" />
     <Compile Include="Models\MilkEntryVM.cs" />
     <Compile Include="Models\MilkForCowDetailsVM.cs" />
@@ -213,6 +214,7 @@
     <Content Include="Views\Cows\CowsForBreed.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Error\PageNotFound.cshtml" />
+    <Content Include="Views\Cows\EditPicture.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
