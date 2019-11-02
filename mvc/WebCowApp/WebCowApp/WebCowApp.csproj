@@ -156,6 +156,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CowsController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="DataAccess\Entities\Breed.cs" />
     <Compile Include="DataAccess\Entities\Cow.cs" />
     <Compile Include="DataAccess\Entities\DailyMilkProduction.cs" />
@@ -206,11 +207,12 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Cows\Cows.cshtml" />
     <Content Include="Views\Cows\ModalMilkDetails.cshtml" />
     <Content Include="Views\Cows\CowsForBreed.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Error\PageNotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
