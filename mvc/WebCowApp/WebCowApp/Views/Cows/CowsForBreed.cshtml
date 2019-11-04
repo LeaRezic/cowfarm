@@ -30,9 +30,16 @@
     {
         <tr>
             <td>
-                <img class="cowPicture"
+                @if (item.PicturePath != null)
+                {
+                    <img class="cowPicture"
                      src="~/Content/Images/@item.PicturePath"
                      alt="Image of Cow" />
+                }
+                else
+                {
+                    <p class="cowPicture">NO IMAGE</p>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

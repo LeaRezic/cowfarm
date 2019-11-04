@@ -56,10 +56,15 @@ namespace WebCowApp.Controllers
                 CowDataManager.UpdateCowPicture(cow.CowID, cow.PicturePath);
                 return RedirectToAction("Cows");
             }
+            else if (cow.PicturePath == null || cow.PicturePath.Trim() == "")
+            {
+                CowDataManager.UpdateCowPicture(cow.CowID, null);
+                return RedirectToAction("Cows");
+            }
             else
             {
                 CowVM entireCow = CowDataManager.GetCowById(cow.CowID);
-                ModelState.AddModelError("CustomError", "Picture path error: picture not found on server. Please enter a relative path within \"/Content/Images/\", including the file extension.");
+                ModelState.AddModelError("CustomError", "Error: picture not found on server. Please enter a relative path within \"/Content/Images/\", including the file extension. Or leave empty to delete the picture.");
                 return View(entireCow);
             }
         }
