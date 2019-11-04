@@ -12,8 +12,8 @@ import java.util.List;
 
 public class CowDataManager {
 
-    private static final String FILE_PATH = "src/com/lea/resources/cowData.txt";
-    private static final String EXPORT_FILE_PATH = "src/com/lea/resources/export.txt";
+    private static final String FILE_PATH_DATA = "src/com/lea/resources/cowData.txt";
+    private static final String FILE_PATH_EXPORT = "src/com/lea/resources/export.txt";
     private static final String DELIMITER = "\\|";
     private static final char DELIMITER_CHAR = '|';
     private static final String IGNORE_LINE = "#";
@@ -26,7 +26,7 @@ public class CowDataManager {
 
     public List<Cow> getAllCows() {
         List<Cow> cows = new ArrayList<>();
-        String absolutePath = FileSystems.getDefault().getPath(FILE_PATH).normalize().toAbsolutePath().toString();
+        String absolutePath = FileSystems.getDefault().getPath(FILE_PATH_DATA).normalize().toAbsolutePath().toString();
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(absolutePath)))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -53,8 +53,8 @@ public class CowDataManager {
                     Integer.parseInt(details[0]),
                     details[1],
                     details[2],
-                    dateUtil.getDateString(details[3]),
-                    dateUtil.getDateString(details[4]),
+                    dateUtil.getDateFromString(details[3]),
+                    dateUtil.getDateFromString(details[4]),
                     Integer.parseInt(details[5]),
                     details[6]
             );
@@ -67,7 +67,7 @@ public class CowDataManager {
     public void addCow(Cow cow) {
         cow.setCowId(getNextCowId());
         String newCowLine = getLineFromCow(cow);
-        String absolutePath = FileSystems.getDefault().getPath(FILE_PATH).normalize().toAbsolutePath().toString();
+        String absolutePath = FileSystems.getDefault().getPath(FILE_PATH_DATA).normalize().toAbsolutePath().toString();
         try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(absolutePath, true)))) {
             out.println(newCowLine);
         } catch (IOException e) {
@@ -83,9 +83,9 @@ public class CowDataManager {
                 .append(DELIMITER_CHAR)
                 .append(cow.getBreed())
                 .append(DELIMITER_CHAR)
-                .append(dateUtil.getStringDate(cow.getDateOfBirth()))
+                .append(dateUtil.getStringFromDate(cow.getDateOfBirth()))
                 .append(DELIMITER_CHAR)
-                .append(dateUtil.getStringDate(cow.getDateOfArrival()))
+                .append(dateUtil.getStringFromDate(cow.getDateOfArrival()))
                 .append(DELIMITER_CHAR)
                 .append(cow.getNumberOfCalf())
                 .append(DELIMITER_CHAR)
@@ -103,9 +103,10 @@ public class CowDataManager {
         return id;
     }
 
-    public void exportCowDataToTextFile(List<Cow> cows) {
+    public void exportCowDataToTextFile() {
+        List<Cow> cows = getAllCows();
         Collections.sort(cows);
-        String absolutePath = FileSystems.getDefault().getPath(EXPORT_FILE_PATH).normalize().toAbsolutePath().toString();
+        String absolutePath = FileSystems.getDefault().getPath(FILE_PATH_EXPORT).normalize().toAbsolutePath().toString();
         try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(absolutePath)))) {
             for (Cow cow : cows) {
                 String line = getLineFromCow(cow);

@@ -17,20 +17,20 @@ public class ConsoleReader {
     public String readString(String message) {
         String input;
         do {
-            System.out.print(message);
-            input = scanner.next();
+            System.out.println(message);
+            input = scanner.nextLine();
         } while (input == null || input.trim().equals(""));
-        return input;
+        return input.trim();
     }
 
     public Date readValidDate(String message) {
         String input;
         do {
-            System.out.print(message);
-            input = scanner.next();
+            System.out.println(message);
+            input = scanner.nextLine();
         } while(!isDateString(input));
         try {
-            return dateUtil.getDateString(input);
+            return dateUtil.getDateFromString(input);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
@@ -40,8 +40,8 @@ public class ConsoleReader {
     public int readInt(String message) {
         String input;
         do {
-            System.out.print(message);
-            input = scanner.next();
+            System.out.println(message);
+            input = scanner.nextLine();
         } while (!isInteger(input));
         return Integer.parseInt(input);
     }
@@ -57,9 +57,18 @@ public class ConsoleReader {
 
     private boolean isDateString(String string) {
         try {
-            dateUtil.getDateString(string);
+            dateUtil.getDateFromString(string);
+            if (!dateUtil.validateDateStringNotInFuture(string)) {
+                System.out.println("Date cannot be in the future.");
+                return false;
+            }
+            if (!dateUtil.validateDateStringNotBefore2000(string)) {
+                System.out.println("Date cannot be before 2000");
+                return false;
+            }
             return true;
         } catch (ParseException e) {
+            System.out.println(String.format("Invalid date format: %s", string));
             return false;
         }
     }

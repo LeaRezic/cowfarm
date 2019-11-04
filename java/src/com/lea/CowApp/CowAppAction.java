@@ -1,6 +1,6 @@
 package com.lea.CowApp;
 
-public enum CowAppActions {
+public enum CowAppAction {
     EXIT(0, "Exit Program"),
     PRINT_COWS(1, "Print stored Cows"),
     ENTER_COW(2, "Enter new Cow"),
@@ -9,7 +9,7 @@ public enum CowAppActions {
     private final int actionKey;
     private final String actionMessage;
 
-    CowAppActions(int actionKey, String message) {
+    CowAppAction(int actionKey, String message) {
         this.actionKey = actionKey;
         this.actionMessage = message;
     }
