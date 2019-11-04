@@ -2,11 +2,11 @@ package com.lea.CowApp;
 
 import com.lea.Models.Cow;
 import com.lea.Utils.ConsoleReader;
-import com.lea.Utils.CowReader;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class CowApp {
 
@@ -14,7 +14,7 @@ public class CowApp {
     private boolean isRunning;
     private HashMap<Integer, CowAppActions> appActions;
     private ConsoleReader reader;
-    private CowReader cowDataManager;
+    private CowDataManager cowDataManager;
     private ArrayList<Cow> cows;
 
     public CowApp() {
@@ -24,7 +24,7 @@ public class CowApp {
             appActions.put(act.getActionKey(), act);
         }
         reader = new ConsoleReader();
-        cowDataManager = new CowReader();
+        cowDataManager = new CowDataManager();
         cows = null;
     }
 
@@ -53,6 +53,9 @@ public class CowApp {
             case ENTER_COW:
                 enterCow();
                 break;
+            case EXPORT_DATA:
+                exportData();
+                break;
             default:
                 return;
         }
@@ -60,11 +63,8 @@ public class CowApp {
 
     private void printCows() {
         System.out.println("PRINTING COWS...");
-        if (cows == null) {
-            cows = new ArrayList<>();
-        }
-        cows = (ArrayList<Cow>) cowDataManager.getCowsFromFile();
-        cows.forEach(cow -> System.out.println(cow.getName() + " " + cow.getBreed() + " " + cow.getVeterinaryId()));
+        cows = (ArrayList<Cow>) cowDataManager.getAllCows();
+        cows.forEach(System.out::println);
     }
 
     private void enterCow() {
@@ -85,6 +85,12 @@ public class CowApp {
                 vetId
         );
         cowDataManager.addCow(cow);
+    }
+
+    private void exportData() {
+        System.out.println("EXPORTING (super duper sorted) DATA TO A TEXT FILE (another file)...");
+        List<Cow> cows = cowDataManager.getAllCows();
+        cowDataManager.exportCowDataToTextFile(cows);
     }
 
     private boolean isInvalidActionKey(int response) {

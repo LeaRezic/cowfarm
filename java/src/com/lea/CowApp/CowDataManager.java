@@ -1,27 +1,30 @@
-package com.lea.Utils;
+package com.lea.CowApp;
 
 import com.lea.Models.Cow;
+import com.lea.Utils.DateUtil;
 
 import java.io.*;
 import java.nio.file.FileSystems;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class CowReader {
+public class CowDataManager {
 
     private static final String FILE_PATH = "src/com/lea/resources/cowData.txt";
+    private static final String EXPORT_FILE_PATH = "src/com/lea/resources/export.txt";
     private static final String DELIMITER = "\\|";
     private static final char DELIMITER_CHAR = '|';
     private static final String IGNORE_LINE = "#";
 
     private DateUtil dateUtil;
 
-    public CowReader() {
+    public CowDataManager() {
         dateUtil = new DateUtil();
     }
 
-    public List<Cow> getCowsFromFile() {
+    public List<Cow> getAllCows() {
         List<Cow> cows = new ArrayList<>();
         String absolutePath = FileSystems.getDefault().getPath(FILE_PATH).normalize().toAbsolutePath().toString();
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(absolutePath)))) {
@@ -92,7 +95,7 @@ public class CowReader {
 
     private int getNextCowId() {
         int id = 0;
-        for (Cow cow : getCowsFromFile()) {
+        for (Cow cow : getAllCows()) {
             if (cow.getCowId() >= id) {
                 id = cow.getCowId() + 1;
             }
@@ -100,4 +103,16 @@ public class CowReader {
         return id;
     }
 
+    public void exportCowDataToTextFile(List<Cow> cows) {
+        Collections.sort(cows);
+        String absolutePath = FileSystems.getDefault().getPath(EXPORT_FILE_PATH).normalize().toAbsolutePath().toString();
+        try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(absolutePath)))) {
+            for (Cow cow : cows) {
+                String line = getLineFromCow(cow);
+                out.println(line);
+            }
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+    }
 }

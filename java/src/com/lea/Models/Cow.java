@@ -2,7 +2,7 @@ package com.lea.Models;
 
 import java.util.Date;
 
-public class Cow {
+public class Cow implements Comparable<Cow> {
     private int cowId;
     private String name;
     private String breed;
@@ -33,47 +33,38 @@ public class Cow {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getBreed() {
         return breed;
     }
 
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
 
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
 
     public Date getDateOfArrival() {
         return dateOfArrival;
     }
 
-    public void setDateOfArrival(Date dateOfArrival) {
-        this.dateOfArrival = dateOfArrival;
-    }
 
     public int getNumberOfCalf() {
         return numberOfCalf;
     }
 
-    public void setNumberOfCalf(int numberOfCalf) {
-        this.numberOfCalf = numberOfCalf;
-    }
 
     public String getVeterinaryId() {
         return veterinaryId;
     }
 
-    public void setVeterinaryId(String veterinaryId) {
-        this.veterinaryId = veterinaryId;
+    @Override
+    public String toString() {
+        return  name + ", " + breed + ", vetID: " + veterinaryId;
+    }
+
+    @Override
+    public int compareTo(Cow o) {
+        return this.getVeterinaryId().compareTo(o.getVeterinaryId());
     }
 }
