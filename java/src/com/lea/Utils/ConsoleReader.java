@@ -23,6 +23,14 @@ public class ConsoleReader {
         return input.trim();
     }
 
+    public String readStringWithPrefix(String message, String prefix) {
+        String input;
+        do {
+            input = readString(message);
+        } while (!input.startsWith(prefix));
+        return input;
+    }
+
     public Date readValidDate(String message) {
         String input;
         do {
@@ -44,6 +52,14 @@ public class ConsoleReader {
             input = scanner.nextLine();
         } while (!isInteger(input));
         return Integer.parseInt(input);
+    }
+
+    public int readNonNegativeInt(String message) {
+        int input;
+        do {
+            input = readInt(message);
+        } while (input < 0);
+        return input;
     }
 
     private boolean isInteger(String string) {

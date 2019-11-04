@@ -75,8 +75,8 @@ public class CowApp {
         String breed = consoleReader.readString("Enter breed: ");
         Date dob = consoleReader.readValidDate("Enter date of birth [yyyy-MM-dd]: ");
         Date doa = consoleReader.readValidDate("Enter date of arrival [yyyy-MM-dd]: ");
-        int numCalf = consoleReader.readInt("Enter number of calf: ");
-        String vetId = consoleReader.readString("Enter veterinary ID: ");
+        int numCalf = consoleReader.readNonNegativeInt("Enter number of calf: ");
+        String vetId = consoleReader.readStringWithPrefix("Enter veterinary ID: ", "HR");
         Cow cow = new Cow(
                 0,
                 name,
