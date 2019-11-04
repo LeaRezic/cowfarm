@@ -60,7 +60,7 @@
             this.btnUpdateCow.UseVisualStyleBackColor = true;
             this.btnUpdateCow.Click += new System.EventHandler(this.btnUpdateCow_Click);
             // 
-            // Form1
+            // CowListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -68,7 +68,8 @@
             this.Controls.Add(this.btnUpdateCow);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbCows);
-            this.Name = "Form1";
+            this.Name = "CowListForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cow Farm";
             this.ResumeLayout(false);
             this.PerformLayout();

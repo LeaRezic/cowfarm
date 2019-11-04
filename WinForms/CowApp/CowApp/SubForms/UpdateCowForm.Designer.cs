@@ -139,6 +139,11 @@
             // numCalf
             // 
             this.numCalf.Location = new System.Drawing.Point(15, 273);
+            this.numCalf.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             this.numCalf.Name = "numCalf";
             this.numCalf.Size = new System.Drawing.Size(235, 20);
             this.numCalf.TabIndex = 11;
@@ -183,6 +188,7 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);
             this.Name = "UpdateCowForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update Cow";
             ((System.ComponentModel.ISupportInitialize)(this.numCalf)).EndInit();
             this.ResumeLayout(false);
