@@ -15,11 +15,8 @@ public class DateUtil {
 
     public Date getDateFromString(String date) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+        sdf.setLenient(false);
         return sdf.parse(date);
-    }
-
-    public boolean validateDateNotInFuture(Date date) {
-        return date.compareTo(new Date()) <= 0;
     }
 
     public boolean validateDateStringNotInFuture(String date) {
