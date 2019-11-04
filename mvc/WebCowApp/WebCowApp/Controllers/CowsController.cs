@@ -49,11 +49,20 @@ namespace WebCowApp.Controllers
         [HttpPost]
         public ActionResult EditPicture(CowPictureEditVM cow)
         {
-            CowDataManager.UpdateCowPicture(cow.CowID, cow.PicturePath);
-            Console.WriteLine(cow);
-            return RedirectToAction("Cows");
+            string relativePath = "~/Content/Images/" + cow.PicturePath;
+            string absolutePath = HttpContext.Server.MapPath(relativePath);
+            if (System.IO.File.Exists(absolutePath))
+            {
+                CowDataManager.UpdateCowPicture(cow.CowID, cow.PicturePath);
+                return RedirectToAction("Cows");
+            }
+            else
+            {
+                CowVM entireCow = CowDataManager.GetCowById(cow.CowID);
+                ModelState.AddModelError("CustomError", "Picture path error: picture not found on server. Please enter a relative path within \"/Content/Images/\", including the file extension.");
+                return View(entireCow);
+            }
         }
-
 
     }
 }
