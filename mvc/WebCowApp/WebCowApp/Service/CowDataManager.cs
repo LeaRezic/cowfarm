@@ -26,8 +26,7 @@ namespace WebCowApp.Service
 
         public IEnumerable<CowVM> GetCowByBreedVMs(int id)
         {
-            return Repo.GetCows()
-                .Where((entity) => entity.BreedID == id)
+            return Repo.GetCowsForBreed(id)
                 .Select((entity) => CowEntityToVM(entity));
         }
 
@@ -37,21 +36,17 @@ namespace WebCowApp.Service
                 .Select((breed) => BreedEntityToVM(breed));
         }
 
-        private BreedVM BreedEntityToVM(Breed breed)
+        internal CowVM GetCowById(int id)
         {
-            return new BreedVM
-            {
-                Id = breed.IDBreed,
-                Name = breed.Name,
-            };
+            Cow cow = Repo.GetCowById(id);
+            return CowEntityToVM(cow);
         }
 
         public MilkForCowDetailsVM GetMilkDetailsForCow(int cowId)
         {
             MilkForCowDetailsVM result = new MilkForCowDetailsVM();
-            List<DailyMilkProduction> milkEntries = Repo.GetDailyMilkProductions()
-                .Where((dmp) => dmp.CowID == cowId)
-                .ToList();
+            List<DailyMilkProduction> milkEntries =
+                Repo.GetDailyMilkProductionsForCow(cowId).ToList();
             if (milkEntries.Count > 0)
             {
                 result.CowID = milkEntries[0].CowID;
@@ -69,11 +64,13 @@ namespace WebCowApp.Service
             Repo.UpdateCow(entity);
         }
 
-        internal CowVM GetCowById(int id)
+        private BreedVM BreedEntityToVM(Breed breed)
         {
-            return GetCowVMs()
-                .Where((cow) => cow.CowID == id)
-                .FirstOrDefault();
+            return new BreedVM
+            {
+                Id = breed.IDBreed,
+                Name = breed.Name,
+            };
         }
 
         private MilkEntryVM MilkEntryEntityToVM(DailyMilkProduction dmp)
@@ -100,7 +97,5 @@ namespace WebCowApp.Service
                 VetID = entity.VeterinaryID
             };
         }
-
-        
     }
 }

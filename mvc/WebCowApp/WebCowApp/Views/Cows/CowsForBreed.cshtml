@@ -60,13 +60,20 @@
                 @Html.DisplayFor(modelItem => item.CalfCount)
             </td>
             <td>
-                @Html.ActionLink("Edit Photo", "EditPicture", new { id = item.CowID }, new { @class = "btn btn-xs btn-success" })
-                @Html.ActionLink("Milking Data", "ModalMilkDetails", "Cows", new { id = item.CowID }, new
-                {
-                    @class = "btn btn-xs btn-info",
-                    data_target = "#modalMilkDetails",
-                    data_toggle = "modal"
-                })
+                @Html.ActionLink("Edit Photo",
+                    "EditPicture",
+                    new { id = item.CowID },
+                    new { @class = "btn btn-xs btn-success" })
+                @Html.ActionLink("Milking Data",
+                    "ModalMilkDetails",
+                    "Cows",
+                    new { id = item.CowID },
+                    new {
+                        @class = "btn btn-xs btn-info",
+                        data_target = "#modalMilkDetails",
+                        data_toggle = "modal"
+                    })
+                
             </td>
         </tr>
     }

@@ -10,7 +10,8 @@ namespace WebCowApp.DataAccess.Repository
     interface IRepository
     {
         IEnumerable<Cow> GetCows();
-        IEnumerable<DailyMilkProduction> GetDailyMilkProductions();
+        IEnumerable<Cow> GetCowsForBreed(int breedId);
+        IEnumerable<DailyMilkProduction> GetDailyMilkProductionsForCow(int cowId);
         IEnumerable<Breed> GetBreeds();
         Cow GetCowById(int cowID);
         void UpdateCow(Cow entity);

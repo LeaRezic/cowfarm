@@ -11,6 +11,11 @@ public class Cow implements Comparable<Cow> {
     private int numberOfCalf;
     private String veterinaryId;
 
+    @Override
+    public int compareTo(Cow o) {
+        return this.getVeterinaryId().compareTo(o.getVeterinaryId());
+    }
+
     public Cow(int cowId, String name, String breed, Date dateOfBirth, Date dateOfArrival, int numberOfCalf, String veterinaryId) {
         this.cowId = cowId;
         this.name = name;
@@ -63,8 +68,4 @@ public class Cow implements Comparable<Cow> {
         return  name + ", " + breed + ", vetID: " + veterinaryId;
     }
 
-    @Override
-    public int compareTo(Cow o) {
-        return this.getVeterinaryId().compareTo(o.getVeterinaryId());
-    }
 }

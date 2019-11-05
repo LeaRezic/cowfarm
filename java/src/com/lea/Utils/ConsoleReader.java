@@ -45,6 +45,24 @@ public class ConsoleReader {
         }
     }
 
+    private boolean isDateString(String string) {
+        try {
+            dateUtil.getDateFromString(string);
+            if (!dateUtil.validateDateStringNotInFuture(string)) {
+                System.out.println("Date cannot be in the future.");
+                return false;
+            }
+            if (!dateUtil.validateDateStringNotBefore2000(string)) {
+                System.out.println("Date cannot be before 2000");
+                return false;
+            }
+            return true;
+        } catch (ParseException e) {
+            System.out.println(String.format("Invalid date format: %s", string));
+            return false;
+        }
+    }
+
     public int readInt(String message) {
         String input;
         do {
@@ -71,21 +89,4 @@ public class ConsoleReader {
         }
     }
 
-    private boolean isDateString(String string) {
-        try {
-            dateUtil.getDateFromString(string);
-            if (!dateUtil.validateDateStringNotInFuture(string)) {
-                System.out.println("Date cannot be in the future.");
-                return false;
-            }
-            if (!dateUtil.validateDateStringNotBefore2000(string)) {
-                System.out.println("Date cannot be before 2000");
-                return false;
-            }
-            return true;
-        } catch (ParseException e) {
-            System.out.println(String.format("Invalid date format: %s", string));
-            return false;
-        }
-    }
 }

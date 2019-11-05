@@ -26,8 +26,15 @@ public class CowDataManager {
 
     public List<Cow> getAllCows() {
         List<Cow> cows = new ArrayList<>();
-        String absolutePath = FileSystems.getDefault().getPath(FILE_PATH_DATA).normalize().toAbsolutePath().toString();
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(absolutePath)))) {
+        String absolutePath = FileSystems.getDefault()
+                .getPath(FILE_PATH_DATA)
+                .normalize()
+                .toAbsolutePath()
+                .toString();
+        try (BufferedReader bufferedReader =
+                     new BufferedReader(
+                             new InputStreamReader(
+                                     new FileInputStream(absolutePath)))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 if (line.startsWith(IGNORE_LINE) || line.trim().equals("")) {
@@ -67,8 +74,15 @@ public class CowDataManager {
     public void addCow(Cow cow) {
         cow.setCowId(getNextCowId());
         String newCowLine = getLineFromCow(cow);
-        String absolutePath = FileSystems.getDefault().getPath(FILE_PATH_DATA).normalize().toAbsolutePath().toString();
-        try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(absolutePath, true)))) {
+        String absolutePath = FileSystems.getDefault()
+                .getPath(FILE_PATH_DATA)
+                .normalize()
+                .toAbsolutePath()
+                .toString();
+        try (PrintWriter out =
+                     new PrintWriter(
+                             new BufferedWriter(
+                                     new FileWriter(absolutePath, true)))) {
             out.println(newCowLine);
         } catch (IOException e) {
             System.err.println(e);
@@ -106,8 +120,15 @@ public class CowDataManager {
     public void exportCowDataToTextFile() {
         List<Cow> cows = getAllCows();
         Collections.sort(cows);
-        String absolutePath = FileSystems.getDefault().getPath(FILE_PATH_EXPORT).normalize().toAbsolutePath().toString();
-        try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(absolutePath)))) {
+        String absolutePath = FileSystems.getDefault()
+                .getPath(FILE_PATH_EXPORT)
+                .normalize()
+                .toAbsolutePath()
+                .toString();
+        try (PrintWriter out =
+                     new PrintWriter(
+                             new BufferedWriter(
+                                     new FileWriter(absolutePath)))) {
             for (Cow cow : cows) {
                 String line = getLineFromCow(cow);
                 out.println(line);

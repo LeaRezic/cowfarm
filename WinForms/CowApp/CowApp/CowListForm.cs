@@ -12,72 +12,60 @@ namespace CowApp
     {
 
         private IRepository Repo { get; set; }
-        private Cow CurrentCow { get; set; }
-        private List<Cow> CowData;
 
         public CowListForm()
         {
             InitializeComponent();
-            loadDataSource();
-            loadCows();
+            initializeRepo();
+            loadCowList();
         }
 
-        private void loadDataSource()
+        private void initializeRepo()
         {
             Repo = new DBRepository();
-            CurrentCow = null;
-            CowData = Repo.GetCows().ToList();
         }
 
-        private void loadCows()
+        private void loadCowList()
         {
-            if (CowData == null || CowData.Count == 0)
+            IEnumerable<Cow> CowData = Repo.GetCows();
+            if (CowData == null || CowData.Count() == 0)
             {
-                this.lbCows.Items.Add("No Data");
+                lbCows.Items.Add("No Data");
                 return;
             }
-            this.lbCows.SelectedIndexChanged += LbCows_SelectedIndexChanged;
-            this.lbCows.DataSource = CowData;
-        }
-
-        private void LbCows_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            if (lbCows.Items.Count > 0)
-            {
-                CurrentCow = lbCows.SelectedValue as Cow;
-            }
+            lbCows.DataSource = CowData;
+            //lbCows.DisplayMember = "Name";
+            //lbCows.ValueMember = "CowID";
         }
 
         private void btnUpdateCow_Click(object sender, System.EventArgs e)
         {
-            if (CowData == null || CowData.Count == 0)
+            object selectedItem = lbCows.SelectedValue;
+            if (selectedItem is Cow)
+            {
+                UpdateCowForm updateForm = new UpdateCowForm();
+                updateForm.ShowCow(selectedItem as Cow);
+                updateForm.Show();
+                updateForm.FormClosed += UpdateForm_FormClosed;
+            }
+            else
             {
                 MessageBox.Show("No data available.");
                 return;
             }
-            if (CurrentCow == null)
-            {
-                MessageBox.Show("Please select a cow to update.");
-                return;
-            }
-            UpdateCowForm updateForm = new UpdateCowForm();
-            updateForm.ShowCow(CurrentCow);
-            updateForm.Show();
-            updateForm.FormClosed += UpdateForm_FormClosed;
         }
 
         private void UpdateForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             if ((sender as UpdateCowForm).DidUpdate)
             {
-                this.UpdateDisplayData();
+                UpdateCowList();
             }
         }
 
-        private void UpdateDisplayData()
+        private void UpdateCowList()
         {
-            CowData = Repo.GetCows().ToList();
-            lbCows.DataSource = CowData;
+            lbCows.DataSource = Repo.GetCows();
         }
     }
 }

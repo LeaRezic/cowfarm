@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebCowApp.DataAccess.Entities;
+using System.Data.Entity;
 
 namespace WebCowApp.DataAccess.Repository
 {
@@ -14,7 +15,8 @@ namespace WebCowApp.DataAccess.Repository
             {
                 using (DBModel _db = new DBModel())
                 {
-                    return _db.Breeds.ToList();
+                    return _db.Breeds
+                        .ToList();
                 }
             }
             catch (Exception)
@@ -31,7 +33,9 @@ namespace WebCowApp.DataAccess.Repository
                 using (DBModel _db = new DBModel())
                 {
                     return _db.Cows
-                        .Find(cowID);
+                        .Include(c => c.Breed)
+                        .ToList()
+                        .Find(c => c.IDCow == cowID);
                 }
             }
             catch (Exception)
@@ -47,7 +51,9 @@ namespace WebCowApp.DataAccess.Repository
             {
                 using (DBModel _db = new DBModel())
                 {
-                    return _db.Cows.Include("Breed").ToList();
+                    return _db.Cows
+                        .Include(c => c.Breed)
+                        .ToList();
                 }
             }
             catch (Exception)
@@ -57,13 +63,35 @@ namespace WebCowApp.DataAccess.Repository
             }
         }
 
-        public IEnumerable<DailyMilkProduction> GetDailyMilkProductions()
+        public IEnumerable<Cow> GetCowsForBreed(int breedId)
         {
             try
             {
                 using (DBModel _db = new DBModel())
                 {
-                    return _db.DailyMilkProductions.Include("Cow").ToList();
+                    return _db.Cows
+                        .Include(c => c.Breed)
+                        .Where(cow => cow.BreedID == breedId)
+                        .ToList();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public IEnumerable<DailyMilkProduction> GetDailyMilkProductionsForCow(int cowId)
+        {
+            try
+            {
+                using (DBModel _db = new DBModel())
+                {
+                    return _db.DailyMilkProductions
+                        .Include(dpm => dpm.Cow)
+                        .Where(dmp => dmp.CowID == cowId)
+                        .ToList();
                 }
             }
             catch (Exception)

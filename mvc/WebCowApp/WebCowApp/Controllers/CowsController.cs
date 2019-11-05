@@ -64,7 +64,9 @@ namespace WebCowApp.Controllers
             else
             {
                 CowVM entireCow = CowDataManager.GetCowById(cow.CowID);
-                ModelState.AddModelError("CustomError", "Error: picture not found on server. Please enter a relative path within \"/Content/Images/\", including the file extension. Or leave empty to delete the picture.");
+                ModelState.AddModelError("CustomError", "Error: picture not found on server." +
+                    "Please enter a relative path within \"/Content/Images/\", including the file extension." +
+                    "Or leave empty to delete the picture.");
                 return View(entireCow);
             }
         }

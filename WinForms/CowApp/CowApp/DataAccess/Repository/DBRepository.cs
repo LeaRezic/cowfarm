@@ -10,10 +10,6 @@ namespace CowApp.DataAccess.Repository
 {
     class DBRepository : IRepository
     {
-        public Breed GetBreed(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<Breed> GetBreeds()
         {
@@ -29,11 +25,6 @@ namespace CowApp.DataAccess.Repository
 
                 throw;
             }
-        }
-
-        public Cow GetCow(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<Cow> GetCows()
@@ -54,11 +45,6 @@ namespace CowApp.DataAccess.Repository
             }
         }
 
-        public IEnumerable<DailyMilkProduction> GetDailyMilkProductions()
-        {
-            throw new NotImplementedException();
-        }
-
         public void UpdateCow(Cow cow)
         {
             this.UpdateOrCreateCow(cow);
@@ -70,9 +56,9 @@ namespace CowApp.DataAccess.Repository
             {
                 using (var _dbContext = new DBModel())
                 {
-                    _dbContext.Entry(cow).State = cow.IDCow == 0 ?
-                                                        EntityState.Added :
-                                                        EntityState.Modified;
+                    _dbContext.Entry(cow).State = cow.IDCow == 0
+                        ? EntityState.Added
+                        : EntityState.Modified;
                     _dbContext.SaveChanges();
                 }
             }

@@ -11,24 +11,72 @@ namespace CowApp.SubForms
     {
         private IRepository Repo;
         private ErrorProvider errorProvider;
-        private List<Breed> Breeds { get; set; }
         private int CowID { get; set; }
         public bool DidUpdate { get; set; }
 
         public UpdateCowForm()
         {
             InitializeComponent();
-            InitDataSource();
-            InitDropDowns();
-            InitValidationListeners();
+            InitializeRepo();
+            InitializeDropDowns();
+            AddValidationListeners();
         }
 
-        private void InitValidationListeners()
+        private void InitializeRepo()
+        {
+            Repo = new DBRepository();
+        }
+        private void InitializeDropDowns()
+        {
+            ddBreed.DataSource = Repo.GetBreeds();
+            ddBreed.DisplayMember = "Name";
+            ddBreed.ValueMember = "IDBreed";
+        }
+
+        public void ShowCow(Cow cow)
+        {
+            CowID = cow.IDCow;
+            txtName.Text = cow.Name;
+            ddBreed.SelectedValue = cow.BreedID;
+            dpDob.Value = cow.DateOfBirth;
+            mtxtVetId.Text = cow.VeterinaryID;
+            dpDoA.Value = cow.DateOfArrival;
+            numCalf.Value = cow.CalfCount;
+        }
+
+        private Cow GetCowData()
+        {
+            Cow updatedCow = new Cow();
+            updatedCow.IDCow = CowID;
+            updatedCow.Name = txtName.Text;
+            updatedCow.BreedID = int.Parse(ddBreed.SelectedValue.ToString());
+            updatedCow.DateOfBirth = dpDob.Value;
+            updatedCow.DateOfArrival = dpDoA.Value;
+            updatedCow.CalfCount = int.Parse(numCalf.Value.ToString());
+            updatedCow.VeterinaryID = mtxtVetId.Text;
+            return updatedCow;
+        }
+
+        private void AddValidationListeners()
         {
             errorProvider = new ErrorProvider();
             txtName.Validating += TxtName_Validating;
             dpDob.Validating += DpDob_Validating;
             dpDoA.Validating += DpDoA_Validating;
+        }
+        private void TxtName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtName.Text))
+            {
+                e.Cancel = true;
+                txtName.Focus();
+                errorProvider.SetError(txtName, "Name cannot be null");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(txtName, null);
+            }
         }
 
         private void DpDob_Validating(object sender, System.ComponentModel.CancelEventArgs e)
@@ -45,7 +93,6 @@ namespace CowApp.SubForms
                 errorProvider.SetError(dpDob, null);
             }
         }
-
         private void DpDoA_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (dpDoA.Value < dpDob.Value)
@@ -65,50 +112,6 @@ namespace CowApp.SubForms
                 e.Cancel = false;
                 errorProvider.SetError(dpDoA, null);
             }
-        }
-
-        private void TxtName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtName.Text))
-            {
-                e.Cancel = true;
-                txtName.Focus();
-                errorProvider.SetError(txtName, "Name cannot be null");
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProvider.SetError(txtName, null);
-            }
-        }
-       
-        private void InitDataSource()
-        {
-            Repo = new DBRepository();
-        }
-
-        private void InitDropDowns()
-        {
-            Breeds = Repo.GetBreeds().ToList();
-            ddBreed.DataSource = Breeds;
-            ddBreed.DisplayMember = "Name";
-            ddBreed.ValueMember = "IDBreed";
-        }
-
-        public void ShowCow(Cow cow)
-        {
-            CowID = cow.IDCow;
-            txtName.Text = cow.Name;
-            ddBreed.SelectedValue = cow.BreedID;
-            dpDob.Value = cow.DateOfBirth;
-            mtxtVetId.Text = cow.VeterinaryID;
-            dpDoA.Value = cow.DateOfArrival;
-            numCalf.Value = cow.CalfCount;
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -132,17 +135,10 @@ namespace CowApp.SubForms
             }
         }
 
-        private Cow GetCowData()
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-            Cow updatedCow = new Cow();
-            updatedCow.IDCow = CowID;
-            updatedCow.Name = txtName.Text;
-            updatedCow.BreedID = int.Parse(ddBreed.SelectedValue.ToString());
-            updatedCow.DateOfBirth = dpDob.Value;
-            updatedCow.DateOfArrival = dpDoA.Value;
-            updatedCow.CalfCount = int.Parse(numCalf.Value.ToString());
-            updatedCow.VeterinaryID = mtxtVetId.Text;
-            return updatedCow;
+            Close();
         }
+
     }
 }
